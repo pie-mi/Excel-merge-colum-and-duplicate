@@ -37,7 +37,7 @@ class Application(tk.Frame):
         self.choice1.pack()  
         self.choice2 = tk.Radiobutton(self, text="先过滤再去重", variable=self.choice_var, value="先过滤再去重")  
         self.choice2.pack()
-          
+        self.choice_var.set("先去重再过滤") #默认设置为先去重再过滤，避免开始运行时两个都被勾选的bug
   
         self.start_button2 = tk.Button(self)  
         self.start_button2["text"] = "开始"  
@@ -120,6 +120,7 @@ class Application(tk.Frame):
         duration = time.time() - start_time  
         self.text_box.insert(tk.END, f"总耗时： {duration:.2f}秒\n")  
         self.text_box.insert(tk.END, "处理完成\n")
+        self.text_box.insert(tk.END, "\n") #输出一个空行，一次性处理多个时输出更清晰
 
 if __name__ == '__main__':  
     root = tk.Tk()  
