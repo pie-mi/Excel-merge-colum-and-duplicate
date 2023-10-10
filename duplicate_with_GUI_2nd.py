@@ -1,3 +1,12 @@
+'''
+# This program is written by 李泽钧 & 彭瑞安
+# For the purpose of dualing with Excel(merge, deduplicate and filter excel for more specific) in China Telecom work procedure
+#
+# Date: 2023/10/08 
+'''
+
+
+
 import pandas as pd  
 import tkinter as tk  
 from tkinter import filedialog  
@@ -85,7 +94,7 @@ class Application(tk.Frame):
   
     def process_data(self):  
         start_time = time.time()  
-        messagebox.showinfo("提示", "正在处理中...")  
+        #messagebox.showinfo("提示", "正在处理中...")  #BUG,不点击确认就会一直卡在这一步，不往下运行的
         df = pd.read_excel(self.input_file, sheet_name='基站承载视图1')  
         duration = time.time() - start_time  
         self.text_box.insert(tk.END, f"读取用时： {duration:.2f}秒\n")  
@@ -129,7 +138,7 @@ def open_link(event):
 if __name__ == '__main__':  
     root = tk.Tk()  
     # 创建一个Label，显示作者信息  
-    author_label = tk.Label(root, text="作者：李泽钧 彭瑞安 https://github.com/pie-mi/Excel-merge-filter-and-duplicate", font=("Arial", 8), anchor="w")  
+    author_label = tk.Label(root, text="了解更多: https://github.com/pie-mi/Excel-merge-filter-and-duplicate", font=("Arial", 8), anchor="w")  
     author_label.bind("<Button-1>", open_link)  
     author_label.pack(fill=tk.X, ipadx=5, pady=5)  # 使用padx和pady设置Label与其他组件的间距
     author_label2 = tk.Label(root, text="请确保Excel表中含有名为“基站承载视图1”的sheet", font=("Arial", 12), anchor="center")  
