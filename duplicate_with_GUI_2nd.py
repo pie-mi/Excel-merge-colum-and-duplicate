@@ -3,7 +3,8 @@ import tkinter as tk
 from tkinter import filedialog  
 from tkinter import messagebox  
 import time  
-import os  
+import os
+import webbrowser  
   
 class Application(tk.Frame):  
     def __init__(self, master=None):
@@ -122,10 +123,14 @@ class Application(tk.Frame):
         self.text_box.insert(tk.END, "处理完成\n")
         self.text_box.insert(tk.END, "\n") #输出一个空行，一次性处理多个时输出更清晰
 
+def open_link(event):  
+    webbrowser.open_new_tab("https://github.com/pie-mi/Excel-merge-filter-and-duplicate")
+
 if __name__ == '__main__':  
     root = tk.Tk()  
     # 创建一个Label，显示作者信息  
-    author_label = tk.Label(root, text="作者：李泽钧 彭瑞安", font=("Arial", 8), anchor="w")  
+    author_label = tk.Label(root, text="作者：李泽钧 彭瑞安 https://github.com/pie-mi/Excel-merge-filter-and-duplicate", font=("Arial", 8), anchor="w")  
+    author_label.bind("<Button-1>", open_link)  
     author_label.pack(fill=tk.X, ipadx=5, pady=5)  # 使用padx和pady设置Label与其他组件的间距
     author_label2 = tk.Label(root, text="请确保Excel表中含有名为“基站承载视图1”的sheet", font=("Arial", 12), anchor="center")  
     author_label2.pack(fill=tk.X, ipadx=5, pady=5)  # 使用padx和pady设置Label与其他组件的间距
