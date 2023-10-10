@@ -7,7 +7,7 @@ import os
   
 class Application(tk.Frame):  
     def __init__(self, master=None):
-        master.title("去重小程序")  
+        master.title("去重过滤小程序")  
         super().__init__(master)  
         self.master = master  
         self.pack()  
@@ -85,15 +85,18 @@ class Application(tk.Frame):
         # 删除"所有者"列中含有特定字符串的所在行  
         #df = df[~df['基站厂家'].str.contains('联通')]
         #df= df[(~df['基站厂家'].str.contains('联通', na=False)) | (df['基站厂家'].isna())] 
-        df = df[~df['基站厂家'].str.contains('联通', na=False)] 
+        #df = df[~df['基站厂家'].str.contains('联通', na=False)] 
   
         # 删除"状态"列为"down"的所在行  
-        df = df[df['端口状态'] != 'down']   
+        #df = df[df['端口状态'] != 'down']   
         df['设备端口'] = df['设备端口'].astype(str).apply(lambda x: x.split('.')[0] if '.' in x else x)
         # 将两列合并为一列
         df['new_column'] = df['设备名称'] + df['设备端口']
         # 仅保留第一行
-        df = df.drop_duplicates(subset='new_column', keep='first')  
+        df = df.drop_duplicates(subset='new_column', keep='first')
+        df = df[~df['基站厂家'].str.contains('联通', na=False)] #删除“基站厂家”列含有联通的所在行
+        # 删除"状态"列为"down"的所在行
+        df = df[df['端口状态'] != 'down']  
         df.to_excel(os.path.join(self.output_folder, "output_" + time.strftime("%Y%m%d%H%M") + ".xlsx"))
         duration = time.time() - start_time  
         self.text_box.insert(tk.END, f"总耗时： {duration:.2f}秒\n")  
@@ -106,5 +109,7 @@ if __name__ == '__main__':
     author_label.pack(fill=tk.X, ipadx=5, pady=5)  # 使用padx和pady设置Label与其他组件的间距
     author_label2 = tk.Label(root, text="请确保Excel表中含有名为“基站承载视图1”的sheet", font=("Arial", 12), anchor="center")  
     author_label2.pack(fill=tk.X, ipadx=5, pady=5)  # 使用padx和pady设置Label与其他组件的间距
+    author_label3 = tk.Label(root, text="此程序是先进行去重，再进行过滤含有联通字符或状态为down的行,去重和过滤顺序不同会导致结果不同", font=("Arial", 10), anchor="center")  
+    author_label3.pack(fill=tk.X, ipadx=5, pady=5)  # 使用padx和pady设置Label与其他组件的间距
     app = Application(root)  
     root.mainloop()
