@@ -77,20 +77,24 @@ class Application(tk.Frame):
         if filename:  
             self.input_file = filename
             self.text_box2.insert(tk.END, "需要处理的Excel文件路径： " + filename + "\n")  # 在文本框输出文件路径  
-            if self.output_folder:  
+            '''感觉多余了
+            if self.input_file:  #self.output_folder:  
                 self.start_button2["state"] = "normal"  
             else:  
-                messagebox.showinfo("错误", "请确保您已选择输出文件夹")  
+                messagebox.showinfo("错误", "请确保您已选择输出文件夹")
+            '''  
   
     def ask_for_output_folder(self):  
         foldername = filedialog.askdirectory()  
         if foldername:  
             self.output_folder = foldername
             self.text_box2.insert(tk.END, "输出文件夹路径： " + foldername + "\n")  # 在文本框输出文件夹路径  
-            if self.input_file:  
+            ''' 感觉多余了
+            if self.input_file:  #这个是检查在选择输出文件夹前有没有选择输入文件
                 self.start_button2["state"] = "normal"  
             else:  
-                messagebox.showinfo("错误", "请确保您已选择输入文件")  
+                messagebox.showinfo("错误", "请确保您已选择输入文件")
+            '''  
   
     def process_data(self):  
         start_time = time.time()  
